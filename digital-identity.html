@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Identity - GNE's APEX 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">← Back to Home</a>
+
+        </nav>
+        
+        <div class="channel-header digital-identity-header">
+            <div class="channel-icon">🎨</div>
+            <h1>Digital Identity Competition</h1>
+            <p>Individual Logo Design Challenge - Submit your creative designs</p>
+        </div>
+
+        <div class="rules-section">
+            <h2>Digital Identity Competition Rules</h2>
+            <div class="rule-card digital-identity-rule">
+                <ul>
+                    <li><strong>Competition Type:</strong> Individual competition</li>
+                    <li><strong>Institution Limit:</strong> Only 1 participant per institution</li>
+                    <li><strong>Task:</strong> Logo designing competition</li>
+                    <li><strong>Theme:</strong> Will be given on the spot</li>
+                    <li><strong>Time Limit:</strong> 60 minutes</li>
+                    <li><strong>Design Tools:</strong> Google Slides, Canva, Adobe Photoshop, Corel Draw, MS-Office, Paint</li>
+                    <li><strong>Internet:</strong> Allowed only for Canva and Google Slides</li>
+                    <li><strong>Logo Size:</strong> 800 x 800 pixels</li>
+                    <li><strong>Laptops:</strong> Bring your own (Paint, Canva & Google Slides provided if needed)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h2>File Upload</h2>
+            <div class="file-input-container">
+                <input type="file" id="fileInput" multiple>
+                <label for="fileInput" class="file-label">
+                    <span>Choose Files for Digital Identity</span>
+                </label>
+            </div>
+
+            <div class="message-section">
+                <label for="messageText">🏫 School Code:</label>
+                <textarea id="messageText" placeholder="Enter your School Code..."></textarea>
+            </div>
+
+            <button id="uploadBtn" class="upload-btn digital-identity-btn">🎨 Submit Design</button>
+        </div>
+
+        <div class="status-section">
+            <div id="status" class="status"></div>
+            <div id="fileList" class="file-list"></div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="upload.js"></script>
+    <script>
+        // Set the channel type for this page
+        window.channelType = 'digitalIdentity';
+        window.channelName = 'Digital Identity';
+    </script>
+</body>
+</html>
