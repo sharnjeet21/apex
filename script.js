@@ -5,11 +5,11 @@ class DiscordUploader {
         this.status = document.getElementById('status');
         this.fileList = document.getElementById('fileList');
         this.messageText = document.getElementById('messageText');
-        
+
         // Get channel type from window variable set in HTML
         this.channelType = window.channelType;
         this.channelName = window.channelName;
-        
+
         this.initEventListeners();
         this.checkWebhookConfiguration();
     }
@@ -34,7 +34,7 @@ class DiscordUploader {
 
     displaySelectedFiles() {
         const files = Array.from(this.fileInput.files);
-        
+
         if (files.length === 0) {
             this.fileList.innerHTML = '';
             return;
@@ -94,7 +94,7 @@ class DiscordUploader {
         // Check file size limits (Discord limit is 25MB for webhooks)
         const maxSize = 25 * 1024 * 1024; // 25MB in bytes
         const oversizedFiles = files.filter(file => file.size > maxSize);
-        
+
         if (oversizedFiles.length > 0) {
             this.showStatus(`Some files are too large. Discord webhook limit is 25MB per file.`, 'error');
             return;
@@ -107,7 +107,7 @@ class DiscordUploader {
             // Upload files in batches (Discord allows up to 10 files per message)
             const batchSize = 10;
             const batches = [];
-            
+
             for (let i = 0; i < files.length; i += batchSize) {
                 batches.push(files.slice(i, i + batchSize));
             }
@@ -115,7 +115,7 @@ class DiscordUploader {
             for (let i = 0; i < batches.length; i++) {
                 const batch = batches[i];
                 await this.uploadBatch(batch, webhookUrl, i === 0 ? message : '');
-                
+
                 if (i < batches.length - 1) {
                     // Small delay between batches to avoid rate limiting
                     await this.delay(1000);
@@ -126,7 +126,7 @@ class DiscordUploader {
             this.fileInput.value = '';
             this.messageText.value = '';
             this.fileList.innerHTML = '';
-            
+
         } catch (error) {
             console.error('Upload error:', error);
             this.showStatus(`Upload failed: ${error.message}`, 'error');
@@ -137,12 +137,12 @@ class DiscordUploader {
 
     async uploadBatch(files, webhookUrl, message) {
         const formData = new FormData();
-        
+
         // Add message content if provided
         if (message) {
             formData.append('content', message);
         }
-        
+
         // Add files to form data
         files.forEach((file, index) => {
             formData.append(`file${index}`, file);

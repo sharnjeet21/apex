@@ -1207,6 +1207,159 @@ input[type="file"] {
     to { transform: rotate(360deg); }
 }
 
+/* Topics Section Styles */
+.topics-section {
+    padding: 50px 40px;
+    background: rgba(15, 23, 42, 0.3);
+    backdrop-filter: blur(30px) saturate(140%);
+    -webkit-backdrop-filter: blur(30px) saturate(140%);
+    position: relative;
+}
+
+.topics-section h2 {
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 20px;
+}
+
+.topics-section > p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #94a3b8;
+    margin-bottom: 40px;
+}
+
+.topic-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.topic-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.topic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        transparent 50%, 
+        rgba(255, 255, 255, 0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: liquidFlow 18s ease-in-out infinite;
+}
+
+.topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.topic-card:hover::before {
+    opacity: 1;
+}
+
+.ecosync-topic {
+    border-left: 4px solid #10b981;
+}
+
+.techverse-topic {
+    border-left: 4px solid #3b82f6;
+}
+
+.topic-header h3 {
+    color: #f1f5f9;
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topic-content p {
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+.requirements {
+    margin-top: 25px;
+}
+
+.requirements h4 {
+    color: #f1f5f9;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.req-section {
+    margin-bottom: 20px;
+}
+
+.req-section h5 {
+    color: #e2e8f0;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.color-box {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+    min-width: 120px;
+    text-align: center;
+}
+
+.req-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.req-section li {
+    color: #cbd5e1;
+    margin-bottom: 8px;
+    padding-left: 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.req-section li strong {
+    color: #f1f5f9;
+    font-weight: 600;
+}
+
 /* Mobile Optimization - Tablet */
 @media (max-width: 768px) {
     body {
@@ -1309,6 +1462,37 @@ input[type="file"] {
     .rule-card {
         padding: 35px 25px;
         border-radius: 20px;
+    }
+    
+    .topics-section {
+        padding: 35px 25px;
+    }
+    
+    .topics-section h2 {
+        font-size: 1.9em;
+    }
+    
+    .topics-section > p {
+        font-size: 1.1em;
+        margin-bottom: 30px;
+    }
+    
+    .topic-card {
+        padding: 25px 20px;
+    }
+    
+    .topic-header h3 {
+        font-size: 1.4em;
+    }
+    
+    .color-palette {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .color-box {
+        min-width: auto;
+        width: 100%;
     }
     
     .rule-card h3 {
@@ -1442,6 +1626,30 @@ input[type="file"] {
     .rule-card {
         padding: 25px 20px;
         border-radius: 18px;
+    }
+    
+    .topics-section {
+        padding: 25px 20px;
+    }
+    
+    .topics-section h2 {
+        font-size: 1.7em;
+    }
+    
+    .topic-card {
+        padding: 20px 15px;
+    }
+    
+    .topic-header h3 {
+        font-size: 1.3em;
+    }
+    
+    .requirements h4 {
+        font-size: 1.2em;
+    }
+    
+    .req-section h5 {
+        font-size: 1em;
     }
     
     .rule-card h3 {
