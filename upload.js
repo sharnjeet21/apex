@@ -81,6 +81,16 @@ class DiscordUploader {
             return;
         }
 
+<<<<<<< HEAD
+=======
+        // File type validation
+        const invalidFiles = this.validateFileTypes(files);
+        if (invalidFiles.length > 0) {
+            this.showStatus(`Invalid file types detected: ${invalidFiles.join(', ')}. Please check accepted formats.`, 'error');
+            return;
+        }
+
+>>>>>>> d411c7d81f82551ce0e7428953aa16ad55068856
         if (!webhookUrl) {
             this.showStatus(`Please configure the ${this.channelName} webhook URL on the home page first.`, 'error');
             return;
@@ -171,6 +181,35 @@ class DiscordUploader {
         }
     }
 
+<<<<<<< HEAD
+=======
+    validateFileTypes(files) {
+        const invalidFiles = [];
+        
+        // Define allowed file types based on channel
+        let allowedTypes = [];
+        
+        if (this.channelType === 'webWizard') {
+            // Web Wizard: Only ZIP files
+            allowedTypes = ['.zip'];
+        } else if (this.channelType === 'digitalIdentity') {
+            // Digital Identity: Only image files
+            allowedTypes = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp', '.tiff', '.ico', '.psd', '.ai'];
+        }
+        
+        files.forEach(file => {
+            const fileName = file.name.toLowerCase();
+            const isValidType = allowedTypes.some(type => fileName.endsWith(type));
+            
+            if (!isValidType) {
+                invalidFiles.push(file.name);
+            }
+        });
+        
+        return invalidFiles;
+    }
+
+>>>>>>> d411c7d81f82551ce0e7428953aa16ad55068856
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
