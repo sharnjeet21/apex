@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Wizards - GNE's APEX 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navigation">
+            <a href="index.html" class="nav-link">← Back to Home</a>
+
+        </nav>
+
+        <div class="channel-header web-wizard-header">
+            <div class="channel-icon">🧙‍♂️</div>
+            <h1>Web Wizards Competition</h1>
+            <p>Team Website Development Challenge - Submit your project files</p>
+        </div>
+
+        <div class="rules-section">
+            <h2>Web Wizard Competition Rules</h2>
+            <div class="rule-card web-wizard-rule">
+                <ul>
+                    <li><strong>Team Size:</strong> 2 participants per team</li>
+                    <li><strong>Institution Limit:</strong> Only 1 team per institution</li>
+                    <li><strong>Task:</strong> Create one website with provided assets</li>
+                    <li><strong>Theme:</strong> Will be given on the spot</li>
+                    <li><strong>Time Limit:</strong> 90 minutes</li>
+                    <li><strong>Required Languages:</strong> HTML & CSS</li>
+                    <li><strong>Optional Language:</strong> JavaScript</li>
+                    <li><strong>Platform:</strong> Any offline code/text editor</li>
+                    <li><strong>Internet:</strong> Not allowed during competition</li>
+                    <li><strong>Device:</strong> Only 1 device per team</li>
+                    <li><strong>Laptops:</strong> Bring your own (Notepad & VS Code provided if needed)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h2>File Upload</h2>
+            <div class="file-input-container">
+                <input type="file" id="fileInput" multiple>
+                <label for="fileInput" class="file-label">
+                    <span>Choose ZIP Files for Web Wizard</span>
+                </label>
+            </div>
+
+            <div class="message-section">
+                <label for="messageText">🏫 School Code:</label>
+                <textarea id="messageText" placeholder="Enter your School Code..."></textarea>
+            </div>
+
+            <button id="uploadBtn" class="upload-btn web-wizard-btn">🚀 Submit Project</button>
+        </div>
+
+        <div class="status-section">
+            <div id="status" class="status"></div>
+            <div id="fileList" class="file-list"></div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="upload.js"></script>
+    <script>
+        // Set the channel type for this page
+        window.channelType = 'webWizard';
+        window.channelName = 'Web Wizard';
+    </script>
+</body>
+
+</html>
