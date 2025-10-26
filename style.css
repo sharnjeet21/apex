@@ -112,36 +112,73 @@ body::after {
 .container {
     max-width: 900px;
     margin: 0 auto;
-    background: rgba(30, 41, 59, 0.4);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border-radius: 32px;
+    background: linear-gradient(135deg, 
+        rgba(30, 41, 59, 0.15) 0%, 
+        rgba(15, 23, 42, 0.25) 50%, 
+        rgba(30, 41, 59, 0.2) 100%);
+    backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
+    border-radius: 40px;
     box-shadow: 
-        0 32px 64px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 40px 100px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 2px 4px rgba(255, 255, 255, 0.15),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    animation: slideUp 0.8s ease-out, glassShimmer 8s ease-in-out infinite;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    animation: slideUp 0.8s ease-out, liquidGlassFlow 12s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container:hover {
+    backdrop-filter: blur(80px) saturate(220%) brightness(1.15);
+    -webkit-backdrop-filter: blur(80px) saturate(220%) brightness(1.15);
+    box-shadow: 
+        0 50px 120px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        inset 0 3px 6px rgba(255, 255, 255, 0.2),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.15);
 }
 
 .container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, 
+        rgba(255, 255, 255, 0.03) 0deg,
+        rgba(59, 130, 246, 0.08) 60deg,
+        rgba(16, 185, 129, 0.06) 120deg,
+        rgba(168, 85, 247, 0.04) 180deg,
+        rgba(255, 255, 255, 0.02) 240deg,
+        rgba(59, 130, 246, 0.05) 300deg,
+        rgba(255, 255, 255, 0.03) 360deg);
+    pointer-events: none;
+    z-index: 1;
+    animation: liquidRotate 20s linear infinite;
+    opacity: 0.7;
+}
+
+.container::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, 
+    background: radial-gradient(circle at 30% 20%, 
         rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.05) 25%, 
-        transparent 50%, 
-        rgba(59, 130, 246, 0.05) 75%, 
-        rgba(16, 185, 129, 0.05) 100%);
+        transparent 50%),
+        radial-gradient(circle at 70% 80%, 
+        rgba(59, 130, 246, 0.08) 0%, 
+        transparent 50%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
+    animation: liquidPulse 8s ease-in-out infinite;
 }
 
 .container > * {
@@ -149,18 +186,55 @@ body::after {
     z-index: 2;
 }
 
-@keyframes glassShimmer {
+@keyframes liquidGlassFlow {
     0%, 100% {
-        box-shadow: 
-            0 32px 64px rgba(0, 0, 0, 0.4),
-            0 0 0 1px rgba(255, 255, 255, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        background: linear-gradient(135deg, 
+            rgba(30, 41, 59, 0.15) 0%, 
+            rgba(15, 23, 42, 0.25) 50%, 
+            rgba(30, 41, 59, 0.2) 100%);
+        backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
+        -webkit-backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
+    }
+    25% {
+        background: linear-gradient(135deg, 
+            rgba(15, 23, 42, 0.2) 0%, 
+            rgba(30, 41, 59, 0.18) 50%, 
+            rgba(51, 65, 85, 0.15) 100%);
+        backdrop-filter: blur(70px) saturate(180%) brightness(1.05);
+        -webkit-backdrop-filter: blur(70px) saturate(180%) brightness(1.05);
     }
     50% {
-        box-shadow: 
-            0 40px 80px rgba(0, 0, 0, 0.5),
-            0 0 0 1px rgba(59, 130, 246, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        background: linear-gradient(135deg, 
+            rgba(51, 65, 85, 0.12) 0%, 
+            rgba(30, 41, 59, 0.22) 50%, 
+            rgba(15, 23, 42, 0.18) 100%);
+        backdrop-filter: blur(80px) saturate(220%) brightness(1.15);
+        -webkit-backdrop-filter: blur(80px) saturate(220%) brightness(1.15);
+    }
+    75% {
+        background: linear-gradient(135deg, 
+            rgba(30, 41, 59, 0.18) 0%, 
+            rgba(51, 65, 85, 0.15) 50%, 
+            rgba(30, 41, 59, 0.2) 100%);
+        backdrop-filter: blur(65px) saturate(190%) brightness(1.08);
+        -webkit-backdrop-filter: blur(65px) saturate(190%) brightness(1.08);
+    }
+}
+
+@keyframes liquidRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes liquidPulse {
+    0%, 100% { 
+        opacity: 0.3; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.6; 
+        transform: scale(1.05);
     }
 }
 
@@ -177,28 +251,34 @@ body::after {
 
 /* Navigation */
 .navigation {
-    background: rgba(15, 23, 42, 0.3);
-    backdrop-filter: blur(30px) saturate(150%);
-    -webkit-backdrop-filter: blur(30px) saturate(150%);
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.2) 0%, 
+        rgba(30, 41, 59, 0.15) 100%);
+    backdrop-filter: blur(50px) saturate(180%) brightness(1.05);
+    -webkit-backdrop-filter: blur(50px) saturate(180%) brightness(1.05);
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
+    overflow: hidden;
 }
 
 .navigation::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.05) 0%, 
-        transparent 50%, 
-        rgba(16, 185, 129, 0.05) 100%);
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(from 0deg at 50% 50%, 
+        rgba(59, 130, 246, 0.03) 0deg,
+        rgba(16, 185, 129, 0.02) 120deg,
+        rgba(168, 85, 247, 0.02) 240deg,
+        rgba(59, 130, 246, 0.03) 360deg);
     pointer-events: none;
+    animation: liquidSpin 25s linear infinite;
+    opacity: 0.6;
 }
 
 .nav-link {
@@ -337,54 +417,72 @@ body::after {
 .channel-card {
     display: block;
     padding: 50px 40px;
-    border-radius: 28px;
+    border-radius: 32px;
     text-decoration: none;
     color: white;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(50px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.1);
     z-index: 6;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0.02) 100%);
 }
 
 .channel-card::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(from 0deg at 50% 50%, 
+        transparent 0deg,
+        rgba(255, 255, 255, 0.1) 45deg,
+        transparent 90deg,
+        rgba(255, 255, 255, 0.05) 135deg,
+        transparent 180deg,
+        rgba(255, 255, 255, 0.08) 225deg,
+        transparent 270deg,
+        rgba(255, 255, 255, 0.06) 315deg,
+        transparent 360deg);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: liquidSpin 15s linear infinite;
+}
+
+.channel-card::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, 
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
         rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.05) 50%, 
-        rgba(255, 255, 255, 0.1) 100%);
+        rgba(255, 255, 255, 0.05) 30%, 
+        transparent 60%);
     opacity: 0;
     transition: all 0.4s ease;
-}
-
-.channel-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-    transform: rotate(45deg);
-    transition: all 0.6s ease;
-    opacity: 0;
+    pointer-events: none;
 }
 
 .channel-card:hover::before {
-    opacity: 1;
+    opacity: 0.7;
 }
 
 .channel-card:hover::after {
     opacity: 1;
-    animation: liquidShimmer 2s ease-in-out;
+}
+
+@keyframes liquidSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
 }
 
 @keyframes liquidShimmer {
@@ -392,12 +490,31 @@ body::after {
     100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
+@keyframes liquidRipple {
+    0% { 
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1) rotate(180deg);
+        opacity: 0.5;
+    }
+    100% { 
+        transform: scale(2) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 .channel-card:hover {
-    transform: translateY(-15px) scale(1.03);
+    transform: translateY(-20px) scale(1.05);
+    backdrop-filter: blur(70px) saturate(250%) brightness(1.2);
+    -webkit-backdrop-filter: blur(70px) saturate(250%) brightness(1.2);
     box-shadow: 
-        0 40px 80px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 50px 100px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .channel-card.web-wizard {
@@ -890,67 +1007,87 @@ input[type="file"] {
 
 .upload-btn {
     width: 100%;
-    padding: 22px 40px;
-    background: rgba(59, 130, 246, 0.8);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 24px 40px;
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.6) 0%, 
+        rgba(29, 78, 216, 0.7) 100%);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
     font-size: 1.2em;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 
-        0 12px 30px rgba(59, 130, 246, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 15px 40px rgba(59, 130, 246, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.15),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .upload-btn::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, 
+        transparent 0deg,
+        rgba(255, 255, 255, 0.2) 90deg,
+        transparent 180deg,
+        rgba(255, 255, 255, 0.1) 270deg,
+        transparent 360deg);
+    animation: liquidSpin 8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .upload-btn::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 50%, 
-        rgba(255, 255, 255, 0.05) 100%);
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
-    transition: opacity 0.4s ease;
 }
 
 .upload-btn:hover::before {
-    left: 100%;
+    opacity: 0.7;
 }
 
 .upload-btn:hover::after {
+    width: 200px;
+    height: 200px;
     opacity: 1;
+    animation: liquidRipple 1.5s ease-out;
 }
 
 .upload-btn:hover {
-    transform: translateY(-5px);
-    background: rgba(59, 130, 246, 0.9);
+    transform: translateY(-8px) scale(1.02);
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.8) 0%, 
+        rgba(29, 78, 216, 0.9) 100%);
+    backdrop-filter: blur(60px) saturate(250%) brightness(1.2);
+    -webkit-backdrop-filter: blur(60px) saturate(250%) brightness(1.2);
     box-shadow: 
-        0 20px 40px rgba(59, 130, 246, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.3);
+        0 25px 50px rgba(59, 130, 246, 0.4),
+        inset 0 3px 6px rgba(255, 255, 255, 0.2),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .upload-btn:active {
