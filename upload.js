@@ -15,8 +15,47 @@ class DiscordUploader {
     }
 
     initEventListeners() {
-        this.fileInput.addEventListener('change', () => this.displaySelectedFiles());
+        this.fileInput.addEventListener('change', () => {
+            // Add small delay to show processing
+            const fileLabel = document.querySelector('.file-label');
+            fileLabel.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                this.displaySelectedFiles();
+                fileLabel.style.opacity = '1';
+            }, 200);
+        });
+        
         this.uploadBtn.addEventListener('click', () => this.uploadFiles());
+        
+        // Add visual feedback for file selection
+        const fileLabel = document.querySelector('.file-label');
+        
+        // Drag and drop events
+        fileLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileLabel.classList.add('drag-over');
+        });
+        
+        fileLabel.addEventListener('dragleave', () => {
+            fileLabel.classList.remove('drag-over');
+        });
+        
+        fileLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileLabel.classList.remove('drag-over');
+            
+            // Handle dropped files
+            const files = e.dataTransfer.files;
+            this.fileInput.files = files;
+            
+            // Add processing feedback
+            fileLabel.style.opacity = '0.7';
+            setTimeout(() => {
+                this.displaySelectedFiles();
+                fileLabel.style.opacity = '1';
+            }, 200);
+        });
     }
 
     checkWebhookConfiguration() {
@@ -34,23 +73,51 @@ class DiscordUploader {
 
     displaySelectedFiles() {
         const files = Array.from(this.fileInput.files);
+        const fileLabel = document.querySelector('.file-label');
+        const fileLabelSpan = fileLabel.querySelector('span');
         
         if (files.length === 0) {
             this.fileList.innerHTML = '';
+            fileLabel.classList.remove('has-files');
+            
+            // Reset label text based on channel type
+            if (this.channelType === 'webWizard') {
+                fileLabelSpan.innerHTML = 'Choose <strong>ZIP FILE ONLY</strong> for Web Wizard';
+            } else {
+                fileLabelSpan.innerHTML = 'Choose <strong>IMAGE FILES ONLY</strong> for Digital Identity';
+            }
             return;
         }
 
-        const fileListHTML = files.map(file => `
-            <div class="file-item">
-                <span class="file-name">${file.name}</span>
-                <span class="file-size">${this.formatFileSize(file.size)}</span>
-            </div>
-        `).join('');
+        // Add visual feedback for selected files
+        fileLabel.classList.add('has-files');
+        
+        // Update label to show selected files count
+        fileLabelSpan.innerHTML = `✅ <strong>${files.length} file(s) selected</strong> - Click to change`;
+
+        const fileListHTML = files.map(file => {
+            const isValid = this.validateFileTypes([file]).length === 0;
+            const statusIcon = isValid ? '✅' : '❌';
+            const statusClass = isValid ? 'valid' : 'invalid';
+            
+            return `
+                <div class="file-item ${statusClass}">
+                    <span class="file-status">${statusIcon}</span>
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-size">${this.formatFileSize(file.size)}</span>
+                </div>
+            `;
+        }).join('');
 
         this.fileList.innerHTML = `
             <h3>Selected Files (${files.length}):</h3>
-            ${fileListHTML}
+            <div class="files-container">
+                ${fileListHTML}
+            </div>
         `;
+        
+        // Scroll to file list to show selection
+        this.fileList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     formatFileSize(bytes) {
@@ -81,16 +148,12 @@ class DiscordUploader {
             return;
         }
 
-<<<<<<< HEAD
-=======
         // File type validation
         const invalidFiles = this.validateFileTypes(files);
         if (invalidFiles.length > 0) {
             this.showStatus(`Invalid file types detected: ${invalidFiles.join(', ')}. Please check accepted formats.`, 'error');
             return;
         }
-
->>>>>>> d411c7d81f82551ce0e7428953aa16ad55068856
         if (!webhookUrl) {
             this.showStatus(`Please configure the ${this.channelName} webhook URL on the home page first.`, 'error');
             return;
@@ -181,8 +244,6 @@ class DiscordUploader {
         }
     }
 
-<<<<<<< HEAD
-=======
     validateFileTypes(files) {
         const invalidFiles = [];
         
@@ -229,8 +290,6 @@ class DiscordUploader {
         
         return invalidFiles;
     }
-
->>>>>>> d411c7d81f82551ce0e7428953aa16ad55068856
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }

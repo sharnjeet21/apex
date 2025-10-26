@@ -1178,6 +1178,11 @@ input[type="file"] {
     opacity: 1;
 }
 
+.file-label:active {
+    transform: translateY(-4px) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
 
 
 /* Drag and Drop Enhancement */
@@ -1196,6 +1201,81 @@ input[type="file"] {
     100% {
         box-shadow: 0 35px 70px rgba(16, 185, 129, 0.5);
     }
+}
+
+/* File List Display */
+.file-list {
+    margin-top: 2rem;
+    padding: 0;
+}
+
+.file-list h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.files-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.file-item.valid {
+    border-left-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.file-item.invalid {
+    border-left-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.file-item:last-child {
+    margin-bottom: 0;
+}
+
+.file-status {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.file-name {
+    flex: 1;
+    color: #ffffff;
+    font-weight: 500;
+    margin-right: 1rem;
+    word-break: break-word;
+}
+
+.file-size {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* File Selection Success State */
+.file-label.has-files {
+    border-color: rgba(16, 185, 129, 0.6);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.file-label.has-files::before {
+    content: '✅';
 }
 
 /* Success Animation */
