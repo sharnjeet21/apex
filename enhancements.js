@@ -130,7 +130,24 @@ class EnhancedUI {
         
         return Array.from(files).every(file => {
             const fileName = file.name.toLowerCase();
-            return allowedTypes.some(type => fileName.endsWith(type));
+            const fileType = file.type.toLowerCase();
+            
+            // Check file extension
+            const hasValidExtension = allowedTypes.some(type => fileName.endsWith(type));
+            
+            // Additional MIME type validation
+            let hasValidMimeType = true;
+            if (currentPage.includes('digital-identity')) {
+                hasValidMimeType = fileType.startsWith('image/') || 
+                                 fileName.endsWith('.psd') || 
+                                 fileName.endsWith('.ai');
+            } else if (currentPage.includes('web-wizard')) {
+                hasValidMimeType = fileType === 'application/zip' || 
+                                 fileType === 'application/x-zip-compressed' ||
+                                 fileName.endsWith('.zip');
+            }
+            
+            return hasValidExtension && hasValidMimeType;
         });
     }
 

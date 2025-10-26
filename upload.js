@@ -188,20 +188,41 @@ class DiscordUploader {
         
         // Define allowed file types based on channel
         let allowedTypes = [];
+        let channelDescription = '';
         
         if (this.channelType === 'webWizard') {
-            // Web Wizard: Only ZIP files
+            // Web Wizard: ONLY ZIP files
             allowedTypes = ['.zip'];
+            channelDescription = 'Web Wizard (ZIP files only)';
         } else if (this.channelType === 'digitalIdentity') {
-            // Digital Identity: Only image files
+            // Digital Identity: ONLY image files
             allowedTypes = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp', '.tiff', '.ico', '.psd', '.ai'];
+            channelDescription = 'Digital Identity (Image files only)';
         }
         
         files.forEach(file => {
             const fileName = file.name.toLowerCase();
-            const isValidType = allowedTypes.some(type => fileName.endsWith(type));
+            const fileType = file.type.toLowerCase();
             
-            if (!isValidType) {
+            // Check file extension
+            const hasValidExtension = allowedTypes.some(type => fileName.endsWith(type));
+            
+            // Additional MIME type check for images in Digital Identity
+            let hasValidMimeType = true;
+            if (this.channelType === 'digitalIdentity') {
+                hasValidMimeType = fileType.startsWith('image/') || 
+                                 fileName.endsWith('.psd') || 
+                                 fileName.endsWith('.ai');
+            }
+            
+            // For Web Wizard, ensure it's actually a ZIP file
+            if (this.channelType === 'webWizard') {
+                hasValidMimeType = fileType === 'application/zip' || 
+                                 fileType === 'application/x-zip-compressed' ||
+                                 fileName.endsWith('.zip');
+            }
+            
+            if (!hasValidExtension || !hasValidMimeType) {
                 invalidFiles.push(file.name);
             }
         });
